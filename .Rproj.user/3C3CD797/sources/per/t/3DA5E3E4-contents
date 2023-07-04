@@ -1,0 +1,210 @@
+---
+title: "Examen de Candidatura"
+author: "Héctor Mondragón"
+format: revealjs
+editor: visual
+---
+---
+title: "Las actitudes hacia la inmigración en América Latina"
+subtitle: "Cómo la élite política influye mediante las emociones"
+author: "Héctor Mondragón"
+institute: "CIDE"
+format:
+  revealjs: 
+    theme: solarized
+    slide-number: TRUE
+    background-transition: slide
+    logo: "2023logohorizontal.png"
+editor: visual
+---
+
+#  {background-image="Mapa.jpeg" background-size="contain"}
+
+##  {background-image="Estadística.png" background-size="contain"}
+
+##  {background-image="mapa2.png" background-size="contain"}
+
+# ¿Qué explica que las élites políticas puedan o no contribuir en la construcción de las actitudes hacia la inmigración? {background-color="#586e75"}
+
+## Actitudes hacia la inmigración {.smaller}
+
+-   Atención a variables individuales y contextuales.
+    -   Socioculturales
+        -   Identidad\*
+        -   Integración
+    -   Económicas
+        -   Empleo
+        -   Fiscal
+    -   Políticas
+        -   Ideología
+        -   nacionalismos
+-   ¿Cuál es el papel de las élites políticas?
+
+## Justificación
+
+-   Centrada en Europa y Estados Unidos.
+-   Presencia de factores contextuales propios en la región:
+    -   seguridad
+    -   desigualdad
+    -   identidad cultural
+-   Desatención al proceso político mediante el cual se forman las actitudes.
+
+# Argumento {background-color="#586e75"}
+
+##  {background-image="meca.png" background-size="contain"}
+
+## Encuadres
+
+-   «La suma ponderada de una serie de creencias evaluativas de un objeto» (Druckman y Chong, 2007)
+-   Cómo se retrata la inmigración
+-   Moderadores: variables que condicionan los efectos
+    -   Tiempo\
+    -   Deliberación
+    -   Razonamiento motivado
+        -   Ideología, partidos
+
+## Emociones
+
+-   En América Latina, la ideología no es una variable consistente.
+-   Los encuadres tienen un efecto en la opinión pública a través de las emociones.
+-   Pueden entenderse como formas de evaluación.
+
+## Teoría de la Inteligencia Afectiva
+
+-   Razonamiento deliberativo y razonamiento motivado
+-   Emociones
+    -   Entusiasmo\
+    -   Ansiedad o miedo
+    -   Aversión o enojo
+
+## 
+
+::: columns
+::: {.column width="50%"}
+<blockquote class="twitter-tweet">
+
+<p lang="es" dir="ltr">
+
+La nacionalidad nada tiene que ver con la criminalidad, pero la impunidad sí incrementa criminalidad e inseguridad. Los criminales no van a hacer fila en Migracion para que los identifiquemos y judicialicemos. Tenemos que salir, identificarlos y capturarlos para judicializarlos. <a href="https://t.co/8jRZCmhnTs">pic.twitter.com/8jRZCmhnTs</a>
+
+</p>
+
+--- Claudia López Hernández (@ClaudiaLopez) <a href="https://twitter.com/ClaudiaLopez/status/1428337878514507777?ref_src=twsrc%5Etfw">August 19, 2021</a>
+
+</blockquote>
+
+```{=html}
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+```
+:::
+
+::: {.column width="50%"}
+<blockquote class="twitter-tweet" data-conversation="none">
+
+<p lang="es" dir="ltr">
+
+🔴🚆Alcalde de Iquique <a href="https://twitter.com/MauroSoriaM?ref_src=twsrc%5Etfw">@MauroSoriaM</a>: "Las personas están protestando en este minuto por la seguridad. Todos en esta ciudad tienen relación con los migrantes. No reclamamos contra la migración, reclamamos contra el descontrol".<a href="https://twitter.com/hashtag/EstacionCentral?src=hash&amp;ref_src=twsrc%5Etfw">#EstacionCentral</a> <br><br>📻 94.5 FM
+
+</p>
+
+--- Radio USACH 94.5 FM (@radiousach) <a href="https://twitter.com/radiousach/status/1488536020794626052?ref_src=twsrc%5Etfw">February 1, 2022</a>
+
+</blockquote>
+
+```{=html}
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+```
+:::
+:::
+
+##  {background-image="meca2.png" background-size="contain"}
+
+## Grafo causal
+
+```{r}
+pacman::p_load(ggdag, ggplot2, ggthemes, dplyr)
+
+coord <- list(
+  x = c(fuente = 0, objeto = 0, contenido = 0, deliberacion = 0, emociones = 2, actitudes = 4),
+  y = c(fuente = 1, objeto = 2, contenido = 3, deliberacion = 4, emociones = 2.5, actitudes = 2.5)
+  )
+
+object <- dagify(actitudes ~ emociones,
+                 emociones ~ deliberacion + fuente + objeto + contenido,
+                 coords = coord,
+                 labels = c("emociones" = "Emociones",
+                            "actitudes" = "Actitudes\n hacia la \n inmigración",
+                            "deliberacion" = "Deliberación",
+                            "fuente" = "Fuente del \n encuadre",
+                            "objeto" = "Objeto del \n encuadre",
+                            "contenido"= "Contenido del \n encuadre")
+                                )
+
+ggdag(object, stylized = TRUE, text = FALSE, use_labels = "label" ) +
+theme_void()
+```
+
+## Hipótesis {.scrollable}
+
+-   H1. Las personas expuestas a encuadres formulados por actores locales responden con mayor intensidad (generan actitudes más fuertes) que aquellas personas expuestas a encuadres formulados por actores nacionales.
+
+-   H2 Las personas expuestas a encuadres en donde sea más fácil identificar el objeto que genera la emoción, es decir, a las personas inmigrantes como la causa de un efecto determinado, responderán con mayor intensidad que las personas expuestas a encuadres en donde el objeto sea más difícil de identificar, es decir, en donde sea tratado con mayor abstracción.
+
+-   H3. Las personas expuestas a encuadres que apelan a emociones negativas generan actitudes más fuertes que aquellas que son expuestas a encuadres neutrales o positivos.
+
+-   H4 Las personas expuestas a encuadres sobre la inmigración, y que experimentan emociones asociadas al enojo (aversión), generan actitudes más negativas hacia la inmigración; a diferencia de las personas que son expuestas al mismo encuadre, pero que experimentan otro tipo de emociones (miedo o entusiasmo).
+
+-   H5 Las personas expuestas a encuadres en torno a los efectos directos de la inmigración como el crimen o el desempleo generan emociones de enojo o aversión ; a diferencia de las personas expuestas a encuadres que señalan la omisión de ciertas autoridades ante la inmigración, quienes experimentan emociones de miedo o ansiedad.
+
+-   H6 Las personas expuestas a encuadres sobre la inmigración y que discuten sobre éste, experimentan actitudes más moderadas hacia la inmigración que aquellas personas expuestas a los encuadres, pero no a la discusión.
+
+# Metodología {background-color="#586e75"}
+
+## Análisis documental
+
+-   Análisis cualitativo del discurso
+-   Objetivos:
+    -   Identificar actores (nacionales o locales)
+    -   Identificar contextos (¿en qué momento se dice?)
+    -   Identificar encuadres (¿a qué emoción apela?)
+    -   Generar un índice sobre el discurso antimigrante.
+
+## Modelo logit multinivel
+
+-   Objetivos:
+    -   Incluir variables individuales y contextuales.
+    -   Excluir hipótesis alternativas.
+    -   Medir el efecto del discurso antimigrante.
+    -   Ofrecer modelos por región y por país
+    -   Identificar casos de estudio.
+
+## Grupos de enfoque {.smaller}
+
+-   Posibles casos:
+    -   Chile.
+    -   Colombia.
+-   Objetivos:
+    -   Reconstruir la narrativa entorno a la inmigración.
+    -   Observar cómo reaccionan las personas ante ciertos encuadres.
+    -   Evaluar cómo muestran sus emociones y cómo influyen en las opiniones.
+    -   Determinar de qué manera la discusión puede inhibir o reforzar las actitudes.
+
+## Experimentos de encuesta
+
+-   Objetivos:
+    -   Aislar los efectos de los tratamientos
+    -   Comprender mejor el mecanismo
+    -   Comprobar la existencia de un nexo causal
+-   Tratamientos:
+    -   Encuadres: miedo / enojo / entusiasmo
+    -   Actores: nacional / local
+    -   Objetos: concreto / abstracto
+
+## Contribuciones
+
+-   Aporta una explicación sobre el papel de los discursos políticos en las actitudes hacia la inmigración.
+-   Da luz sobre una región que, pese a ser poco estudiada, presenta condiciones que pueden complementar los hallazgos existentes.
+-   Propone un mejor entendimiento sobre la fortaleza de los encuadres y su relación con las emociones.
+-   Profundiza en la comprensión sobre el papel de las emociones en la política.
+
+# ¡Gracias! {background-color="#586e75"}
